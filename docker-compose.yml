@@ -82,6 +82,8 @@ services:
       - broker
     ports:
       - "8088:8088"
+    volumes:
+      - "./confluent-hub-components/:/usr/share/kafka/plugins/"
     environment:
       KSQL_LISTENERS: http://0.0.0.0:8088
       KSQL_BOOTSTRAP_SERVERS: broker:9092
@@ -125,3 +127,24 @@ services:
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
+
+  elasticsearch:
+    image: elasticsearch:7.8.0
+    hostname: elasticsearch
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: single-node
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.8.0
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    environment:
+      xpack.security.enabled: "false"
+      discovery.type: "single-node"

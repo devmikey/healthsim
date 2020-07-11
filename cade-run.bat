@@ -1,0 +1,1 @@
+docker run -v C:\dev\cade-meds1\Resources:/app/Resources --network="host" ramseysys/cade2r3 start.py
