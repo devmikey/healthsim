@@ -15,7 +15,7 @@ Kafka stores these events in a log, enabling the data to be reused for the many 
 4. Machine learning - Need to train algorithms? Bring the data into Kafka so you have a single ingestion pipeline and push into H20.AI or Tensorflow . This is beneficial because you simplify the process of obtaining and cleansing the data
 5.  Record location - Use KSQLDB to provide a up to date state of an event stream such as current immunisations taken by a child - this is beneficial because it allows us to take an event stream and reflect the current state about those events
 6. Triggering alerts - Use KSQLDB to identify anomalies in data - such as when overlapping clinical events occur over a window off time and trigger an activity. This is beneficial because it allows us to develop decision support algorithms that can operate across multiple sources of information across a window in time.
-7. Avoid dual writes - Kafka provides an eventual consistency pattern. This is beneficial because we can push data into Kafka and be confident that data will eventually be consistent at the destination irrespective of whether the source or destination target has downtime. This is beneficial because it removes the problem with dual writes which can lead to data corruption 
+7. Avoid dual writes - Kafka provides an eventual consistency pattern. This is beneficial because we can push data into Kafka and be confident that data will eventually be consistent at the destination irrespective of whether the source or destination target has downtime. This is beneficial because it removes the problem with dual writes which can lead to data corruption
 
 **Install instructions for Healthsim**
 
@@ -73,3 +73,10 @@ git clone https://github.com/charliemccay/cade-meds1.git
 docker run -v $(pwd)/Resources:/app/Resources --network="host" ramseysys/cade2r3 start.py`
 
 If all has gone well CADE will have created a set of events and pushed them to the Healthsim
+
+**KSQLDB**
+KQLDB [https://ksqldb.io/](https://ksqldb.io/) is a DSL that sits on top of Kafka Connect. It provides a familiar SQL like syntax to manipulate streams of data. KSQLDB has a cookbook that provides a set of recipes for handling common problems,  one of the goals of HealthSim is to provide a NHS companion cookbook that sits alongside this. Cookbooks are awesome because they help solve common problems - HealthSim will provide a tailored set of recipes for the health and care sector. Examples of the types of recipes the HealthSim cookbook will provide are:
+
+1. Masking data - remove patient identifiable data from a stream of encounters
+2. Filtering data - exclude records from a specific geography
+3. Enriching data - add additional information such as location information so we can locate patients in real-time
