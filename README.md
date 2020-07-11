@@ -1,13 +1,21 @@
 
-# healthsim
+# HealthSim
 
-Healthsim is a simulator project for INTEROPEN that is being developed to help the INTEROPEN developer community design and develop solutions for the NHS 
+Healthsim is a simulator project for INTEROpen that is being developed to help the INTEROpen developer community design and develop solutions for the NHS
 
-Healthsim uses [Charlie McCays](https://github.com/charliemccay) Simulation tool called CADE to simulate a health and care pathway - [CADE](https://github.com/charliemccay/cade-meds1) generates synthetic events based on a BPMN pathway. These events are pushed into Healthsim -  [Apache Kafka](https://www.confluent.io/what-is-apache-kafka. Kafka stores these events in a log, enabling the data to be reused for the many purposes:
+Healthsim uses [Charlie McCays](https://github.com/charliemccay) Simulation tool called CADE to simulate a health and care pathway - [CADE](https://github.com/charliemccay/cade-meds1) generates synthetic events based on a BPMN pathway. These events are pushed into Healthsim -  [Apache Kafka](https://www.confluent.io/what-is-apache-kafka. 
 
-1. To convert data from its source format into a different target format such as FHIR, HL7v2 - this is beneficial because it means we can share data with systems using different interoperability standards. CADE provides a set of exhaust templates to create the source data in the preferred format so we can model the "As Is" state or "To be" state and then apply a set of transformations to produce the target data in the format(s) desired
+**Why Kafka**
 
-2. To build dashboards so we can visualise the data stream in real time - for example to show admissions or discharges from a hospital. This is beneficial because it allows us to explore our care pathway end to end from a commissioners perspective.
+Kafka stores these events in a log, enabling the data to be reused for the many purposes:
+
+1. Data transformation - to convert data from its source format into a different target format such as FHIR, OpenEHR, HL7v2 - this is beneficial because it means we can share data with systems using different interoperability standards. CADE provides a set of exhaust templates to create the source data in the preferred format so we can model the "As Is" state or "To be" state and then apply a set of transformations to produce the target data in the format(s) desired
+2. Analytics - Use elasticsearch and Kibana to visualise the data stream in real time - for example to show admissions or discharges from a hospital. This is beneficial because it allows us to explore our care pathway end to end from a commissioners perspective and provide just in time analytics.
+3. Data ingestion - Use Debezium to stream changes from your databases using log based changed data capture and the mailbox box pattern. This is beneficial because it can turn your databases into event sources without impacting end users
+4. Machine learning - Need to train algorithms? Bring the data into Kafka so you have a single ingestion pipeline and push into H20.AI or Tensorflow . This is beneficial because you simplify the process of obtaining and cleansing the data
+5.  Record location - Use KSQLDB to provide a up to date state of an event stream such as current immunisations taken by a child - this is beneficial because it allows us to take an event stream and reflect the current state about those events
+6. Triggering alerts - Use KSQLDB to identify anomalies in data - such as when overlapping clinical events occur over a window off time and trigger an activity. This is beneficial because it allows us to develop decision support algorithms that can operate across multiple sources of information across a window in time.
+7. Avoid dual writes - Kafka provides an eventual consistency pattern. This is beneficial because we can push data into Kafka and be confident that data will eventually be consistent at the destination irrespective of whether the source or destination target has downtime. This is beneficial because it removes the problem with dual writes which can lead to data corruption 
 
 **Install instructions for Healthsim**
 
