@@ -72,7 +72,11 @@ Clone CADE from your development root
 git clone https://github.com/charliemccay/cade-meds1.git
 docker run -v $(pwd)/Resources:/app/Resources --network="host" ramseysys/cade2r3 start.py`
 
-If all has gone well CADE will have created a set of events and pushed them to the Healthsim
+If all has gone well CADE will have created a set of events and pushed them into Healthsim and the Kafka Connector would have sent them to Elastic search
+
+To check that they data has gone into Kafka - from KSQL enter "print Patient from beginning"
+
+To check that the data has gone into elastic search from another command line enter "curl localhost:9200/patient/_search"
 
 **KSQLDB**
 KQLDB [https://ksqldb.io/](https://ksqldb.io/) is a DSL that sits on top of Kafka Connect. It provides a familiar SQL like syntax to manipulate streams of data. KSQLDB has a cookbook that provides a set of recipes for handling common problems,  one of the goals of HealthSim is to provide a NHS companion cookbook that sits alongside this. Cookbooks are awesome because they help solve common problems - HealthSim will provide a tailored set of recipes for the health and care sector. Examples of the types of recipes the HealthSim cookbook will provide are:

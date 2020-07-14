@@ -1,0 +1,18 @@
+CREATE SINK CONNECTOR HTTPSINK WITH (
+    'topics'='Patient,Condition,Observation',
+    'tasks.max'='1',
+    'connector.class'='io.confluent.connect.http.HttpSinkConnector',
+    'http.api.url'='http://host.docker.internal:3000/api/medications',
+    'key.converter'='org.apache.kafka.connect.storage.StringConverter',
+    'header.converter'='org.apache.kafka.connect.storage.StringConverter',
+    'value.converter'='org.apache.kafka.connect.storage.StringConverter',
+    'confluent.topic.bootstrap.servers'='broker:9092',
+    'confluent.topic.replication.factor'='1',
+    'reporter.bootstrap.servers' = 'broker:9092',
+    'reporter.result.topic.name' = 'success-responses',
+    'reporter.result.topic.replication.factor' = '1',
+    'reporter.error.topic.name' = 'error-responses',
+    'reporter.error.topic.replication.factor' = '1'
+);
+
+

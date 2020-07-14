@@ -16,7 +16,7 @@ const eventproducer = kafka.producer()
 
 const run = async () => { 
   const topics = [{
-    topic: 'events',
+    topic: 'patient',
     numPartitions: 1,
     replicationFactor: 1,
     replicaAssignment: [],
@@ -24,9 +24,9 @@ const run = async () => {
   }]
 
   await eventproducer.connect()
-  await admin.createTopics({validateOnly: false,waitForLeaders: false,topics: topics});
+  //await admin.createTopics({validateOnly: false,waitForLeaders: false,topics: topics});
   await eventproducer.send({
-    topic: 'events',
+    topic: 'patient',
     messages: messages,
   })
   await eventproducer.disconnect();
